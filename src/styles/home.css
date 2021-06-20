@@ -1,0 +1,11 @@
+body{
+    background-color: lightblue;
+}
+.elements{
+    display:grid;
+    grid-template-columns: 120px 120px 120px 120px;
+    grid-gap: 20px;
+    margin-top: 50px;
+    justify-content: center;
+
+}

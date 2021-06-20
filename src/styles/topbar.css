@@ -1,0 +1,30 @@
+.contain{
+    background: #3bb2ed;
+    padding:10px;
+    display:flex;
+}
+.title{
+    display: flex;
+    align-items: center;
+    font-size:x-large;
+}
+.side-nav{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    margin-left: auto;
+    font-size: larger;
+    align-items: center;
+    
+}
+.item{
+    padding-left: 50px;
+}
+.link{
+    color: black;
+}
+
+.link:hover{
+    text-decoration: none;
+    color: white;
+}
