@@ -18,14 +18,15 @@ export default function AddStudent(){
         })
     }
     const handleEvent =async()=>{
-        console.log(sName+" "+mName);
         await axios.post("https://student-mentor-mgmt-sys-be.herokuapp.com/users/add-student",{
             studentName:sName,
             studentMentor:mName
         })
         .then((response)=>{
-            console.log(response);
             setRes(response.data.message);
+            setTimeout(() => {
+                window.location.reload();
+              }, 1000);
         }).catch((error)=>{
             console.log(error);
         })
@@ -33,6 +34,7 @@ export default function AddStudent(){
     
     return <>
         <div className="add-wrapper">
+        <h3>Add Student</h3>
             <div className="inputfields">
                 <label>Student Name* : </label> <input className="input" type="text" placeholder="Student" required={true} onChange={(e)=>setsName(e.target.value)}></input>
                 <label>Mentor Name : </label>

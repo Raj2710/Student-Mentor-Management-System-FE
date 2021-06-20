@@ -16,6 +16,7 @@ export default function AllMentors(){
     }   
     return <>
         <div>
+        <h3>Mentor Details</h3>
             <table className="table table-hover table-bordered border-primary">
                 <thead className="table" id="thead">
                     <tr>

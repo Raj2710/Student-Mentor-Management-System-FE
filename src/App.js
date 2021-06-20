@@ -6,6 +6,9 @@ import AddMentor from './components/addmentor';
 import AddStudent from './components/addstudent';
 import AllMentors from './components/allmentors';
 import AllStudents from './components/allstudents';
+import AssignStudents from './components/assignstudents';
+import ChangeMentor from './components/changementor';
+import ViewMentor from './components/viewmentor';
 function App() {
   return <>
   <Router>
@@ -16,6 +19,9 @@ function App() {
         <Route path="/add-student" component={AddStudent}/>
         <Route path="/all-mentors" component={AllMentors}/>
         <Route path="/all-students" component={AllStudents}/>
+        <Route path="/assign-students" component={AssignStudents}/>
+        <Route path="/change-mentor" component={ChangeMentor}/>
+        <Route path="/view-mentor" component={ViewMentor}/>
         <Route path="/" component={Home}/>
     </Switch>
   </Router>

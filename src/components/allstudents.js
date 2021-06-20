@@ -14,6 +14,7 @@ export default function AllStudents(){
     }
     return<>
         <div>
+        <h3>Student Details</h3>
             <table className="table table-hover table-bordered border-primary">
                 <thead className="table" id="thead">
                     <tr>

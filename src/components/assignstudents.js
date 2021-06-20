@@ -1,14 +1,25 @@
 import {useState,useEffect} from "react";
-import Select from "react-select";
 import axios from "axios";
-export default function AddMentor(){
+import Select from "react-select";
+export default function AssignStudents(){
+    let [sNames,setsNames]=useState("");
     let [mName,setmName]=useState("");
-    let [sNames,setsNames]=useState([]);
+    let [data,setData]=useState([]);
     let [res,setRes]=useState("");
     let [options,setOptions]=useState([]);
     useEffect(()=>{
-        getAllStudents()
+        getAllMentors();
+        getAllStudents();
     },[])
+    const getAllMentors = async()=>{
+        await axios.get("https://student-mentor-mgmt-sys-be.herokuapp.com/users/all-mentors")
+        .then((response)=>{
+            setData(response.data)
+        })
+        .catch((error)=>{
+            console.log(error);
+        })
+    }
     const getAllStudents = async()=>{
         await axios.get("https://student-mentor-mgmt-sys-be.herokuapp.com/users/all-students")
         .then((response)=>{
@@ -26,31 +37,43 @@ export default function AddMentor(){
         })
     }
     const handleEvent =async()=>{
-        await axios.post("https://student-mentor-mgmt-sys-be.herokuapp.com/users/add-mentor",{
+        await axios.post("https://student-mentor-mgmt-sys-be.herokuapp.com/users/assign-students",{
             mentorName:mName,
             mentorStudents:sNames
         })
-        .then(async(response)=>{
-            await setRes(response.data.message);
+        .then((response)=>{
+            setRes(response.data.message);
             setTimeout(() => {
                 window.location.reload();
               }, 1000);
-        }).catch((error)=>{
+        })
+        .catch((error)=>{
             console.log(error);
         })
-        
     }
     let UpdateSelected = (e)=>{
         setsNames(Array.isArray(e)?e.map(x=>x.label):[]);
     }
+
     return <>
         <div className="add-wrapper">
-        <h3>Add Mentor</h3>
+        <h3>Assign Students</h3>
             <div className="inputfields">
-                <label>Mentor Name* : </label> <input className="input" type="text" placeholder="Student" required={true} onChange={(e)=>setmName(e.target.value)}></input>
-                <label>Student Name : </label>
+                <label>Mentor Name : </label>
+                <select className="input" onChange={(e)=>setmName(e.target.value)}>
+                    <option selected disabled hidden>
+                        Select an Option
+                    </option>
+                    {
+                        data.map((e)=>{
+                            return <>
+                                <option key={e._id}>{e.mentorName}</option>
+                            </>
+                        })
+                    }
+                </select>
+                <label>Students : </label>
                 <Select isMulti options={options} className="input" displayValue="Student" onChange={UpdateSelected}/>
-            
             </div>
             <br></br>
             <button className="btn btn-primary" id="but" onClick={handleEvent}>Add</button>
