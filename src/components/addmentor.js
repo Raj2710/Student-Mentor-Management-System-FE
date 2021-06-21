@@ -9,12 +9,12 @@ export default function AddMentor(){
     useEffect(()=>{
         getAllStudents()
     },[])
-    const getAllStudents = async()=>{
+    const getAllStudents = async()=>{// to get the details of all students without mentor
         await axios.get("https://student-mentor-mgmt-sys-be.herokuapp.com/users/all-students")
         .then((response)=>{
             response.data.map((e)=>{
                 if(!e.studentMentor){
-                    options.push({
+                    options.push({//initialise options for multi select dropdown
                         value:options.length+1,
                         label:e.studentName
                     })
@@ -25,7 +25,7 @@ export default function AddMentor(){
             console.log(error);
         })
     }
-    const handleEvent =async()=>{
+    const handleEvent =async()=>{// creating mentor with array of students
         await axios.post("https://student-mentor-mgmt-sys-be.herokuapp.com/users/add-mentor",{
             mentorName:mName,
             mentorStudents:sNames
@@ -41,7 +41,7 @@ export default function AddMentor(){
         
     }
     let UpdateSelected = (e)=>{
-        setsNames(Array.isArray(e)?e.map(x=>x.label):[]);
+        setsNames(Array.isArray(e)?e.map(x=>x.label):[]);// to handle selected students in multi dropdown
     }
     return <>
         <div className="add-wrapper">

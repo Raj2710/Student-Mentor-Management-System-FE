@@ -11,7 +11,7 @@ export default function AssignStudents(){
         getAllMentors();
         getAllStudents();
     },[])
-    const getAllMentors = async()=>{
+    const getAllMentors = async()=>{//get all mentors
         await axios.get("https://student-mentor-mgmt-sys-be.herokuapp.com/users/all-mentors")
         .then((response)=>{
             setData(response.data)
@@ -20,12 +20,12 @@ export default function AssignStudents(){
             console.log(error);
         })
     }
-    const getAllStudents = async()=>{
+    const getAllStudents = async()=>{//get all students
         await axios.get("https://student-mentor-mgmt-sys-be.herokuapp.com/users/all-students")
         .then((response)=>{
             response.data.map((e)=>{
                 if(!e.studentMentor){
-                    options.push({
+                    options.push({//initialise options for multi select dropdown
                         value:options.length+1,
                         label:e.studentName
                     })
@@ -36,14 +36,14 @@ export default function AssignStudents(){
             console.log(error);
         })
     }
-    const handleEvent =async()=>{
+    const handleEvent =async()=>{//assigning students for selected mentor
         await axios.post("https://student-mentor-mgmt-sys-be.herokuapp.com/users/assign-students",{
             mentorName:mName,
             mentorStudents:sNames
         })
         .then((response)=>{
             setRes(response.data.message);
-            setTimeout(() => {
+            setTimeout(() => {// to refresh after successfull changes
                 window.location.reload();
               }, 1000);
         })
@@ -52,7 +52,7 @@ export default function AssignStudents(){
         })
     }
     let UpdateSelected = (e)=>{
-        setsNames(Array.isArray(e)?e.map(x=>x.label):[]);
+        setsNames(Array.isArray(e)?e.map(x=>x.label):[]);//to handle multi select dropdown selected data
     }
 
     return <>

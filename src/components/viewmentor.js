@@ -1,15 +1,15 @@
 import {useState,useEffect} from "react";
 import axios from "axios";
-export default function ViewMentor(){
+export default function ViewMentor(){// to view the selected mentors student
     let [allMentors,setAllMentors]=useState([]);
     let [mName,setmName]=useState("");
-    let [res,setRes]=useState("");
+    let [res,setRes]=useState("");//display the response message
     let [students,setStudents]=useState([]);
     let count = 0;
     useEffect(()=>{
         getAllMentors();
     },[])
-    const getAllMentors = async()=>{
+    const getAllMentors = async()=>{//collecting all mentors details
         await axios.get("https://student-mentor-mgmt-sys-be.herokuapp.com/users/all-mentors")
         .then((response)=>{
             setAllMentors(response.data);
@@ -18,7 +18,7 @@ export default function ViewMentor(){
             console.log(error);
         })
     }
-    const handleEvent = async()=>{
+    const handleEvent = async()=>{// to get the student details of particular mentor
         await axios.post("https://student-mentor-mgmt-sys-be.herokuapp.com/users/students",{
             mentorName:mName
         }).then((response)=>{
@@ -37,7 +37,7 @@ export default function ViewMentor(){
                         Select an Option
                     </option>
                     {
-                        allMentors.map((e)=>{
+                        allMentors.map((e)=>{//Display each student 1 by 1
                             return <>
                                 <option key={e._id}>{e.mentorName}</option>
                             </>
@@ -50,7 +50,7 @@ export default function ViewMentor(){
             <h3> Students Mapped to Mentor {mName} are:</h3>
             {   
                 students.map((e)=>{
-                    count=count+1;
+                    count=count+1;// to give s.no for each students
                     return <h4>{count}.{e}</h4>
                 })
             }

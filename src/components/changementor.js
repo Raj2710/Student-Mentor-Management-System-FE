@@ -7,8 +7,8 @@ export default function ChangeMentor(){
     let [sName,setsName]=useState("");
     let [res,setRes]=useState("");
     useEffect(()=>{
-        getAllMentors();
-        getAllStudents();
+        getAllMentors();//get all mentor details
+        getAllStudents();//get all students details
     },[])
     const getAllMentors = async()=>{
         await axios.get("https://student-mentor-mgmt-sys-be.herokuapp.com/users/all-mentors")
@@ -29,7 +29,7 @@ export default function ChangeMentor(){
         })
     }
     const handleEvent =async()=>{
-        let oldMentor=""
+        let oldMentor=""//to get the old mentor of the selected student. 
         allStudents.map(async(e)=>{
             if(e.studentName===sName)
                 oldMentor=(e.studentMentor)
@@ -38,10 +38,10 @@ export default function ChangeMentor(){
             mentorName:mName,
             studentName:sName,
             oldMentor:oldMentor,
-        })
+        })//to modify the mentor
         .then((response)=>{
             setRes(response.data.message);
-            setTimeout(() => {
+            setTimeout(() => {//to refresh the page after successfull modifications
                 window.location.reload();
               }, 1000);
         })

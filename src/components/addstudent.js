@@ -8,7 +8,7 @@ export default function AddStudent(){
     useEffect(()=>{
         getAllMentors()
     },[])
-    const getAllMentors = async()=>{
+    const getAllMentors = async()=>{//to get all mentors and display in dropdown
         await axios.get("https://student-mentor-mgmt-sys-be.herokuapp.com/users/all-mentors")
         .then((response)=>{
             setData(response.data)
@@ -17,7 +17,7 @@ export default function AddStudent(){
             console.log(error);
         })
     }
-    const handleEvent =async()=>{
+    const handleEvent =async()=>{// creating student with a mentor or without mentor
         await axios.post("https://student-mentor-mgmt-sys-be.herokuapp.com/users/add-student",{
             studentName:sName,
             studentMentor:mName

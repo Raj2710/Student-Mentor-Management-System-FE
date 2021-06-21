@@ -5,7 +5,7 @@ export default function AllMentors(){
     useEffect(()=>{
         getAlldata();
     },[])
-    let getAlldata = async()=>{
+    let getAlldata = async()=>{// to get all mentor data
         await axios.get("https://student-mentor-mgmt-sys-be.herokuapp.com/users/all-mentors")
         .then((response)=>{
             setData(response.data);

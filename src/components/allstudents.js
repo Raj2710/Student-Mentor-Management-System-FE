@@ -4,7 +4,7 @@ import axios from "axios";
 export default function AllStudents(){
     let [data,setData]=useState([]);
     useEffect(()=>{
-        getAllData();
+        getAllData();//to get all students data
     },[])
     let getAllData = async()=>{
         await axios.get("https://student-mentor-mgmt-sys-be.herokuapp.com/users/all-students")
